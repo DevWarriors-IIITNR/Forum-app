@@ -77,52 +77,73 @@ class _AddLectureScreenState extends State<AddLectureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.subject['name'])),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              'Total Lectures: $totalLectures',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Attended Lectures: $attendedLectures',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Attendance: ${_calculateAttendance().toStringAsFixed(1)}%',
-              style: TextStyle(
-                fontSize: 18,
-                color: _calculateAttendance() < 75 ? Colors.red : Colors.green,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    'Total Lectures: $totalLectures',
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Attended Lectures: $attendedLectures',
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    'Attendance: ${_calculateAttendance().toStringAsFixed(1)}%',
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: _calculateAttendance() < 75
+                          ? Colors.red
+                          : Colors.green,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton.icon(
-              onPressed: () => _markAttendance(true),
-              icon: Icon(Icons.check),
-              label: Text('Mark Present'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+              const SizedBox(height: 32),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () => _markAttendance(true),
+                    icon: Icon(Icons.check),
+                    label: Text('Mark Present'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () => _markAttendance(false),
+                    icon: Icon(Icons.close),
+                    label: Text('Mark Absent'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                  // const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: _historyStack.isEmpty ? null : _undoLastAction,
+                    icon: Icon(Icons.undo),
+                    label: Text('Undo'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () => _markAttendance(false),
-              icon: Icon(Icons.close),
-              label: Text('Mark Absent'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _historyStack.isEmpty ? null : _undoLastAction,
-              icon: Icon(Icons.undo),
-              label: Text('Undo'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

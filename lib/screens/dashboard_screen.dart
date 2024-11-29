@@ -53,6 +53,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/');
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
